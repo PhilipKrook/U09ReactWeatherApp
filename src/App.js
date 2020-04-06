@@ -17,6 +17,7 @@ function App() {
   const [weather, setWeather] = useState({})
   const [position, setPosition] = useState({})
   const [unit, setUnit] = useState('metric')
+  const [outUnit, setOutUnit] = useState("");
 
   const findUser = evt => {
 
@@ -40,8 +41,10 @@ function App() {
       .then(res => res.json())
       .then(result => {
         setWeather(result)
+        setOutUnit(unit === "metric" ? "°C" : "°F");
       });
   }, [position])
+
 
   // Weather search (location)
   const search = evt => {
@@ -51,6 +54,7 @@ function App() {
         .then(result => {
           setWeather(result)
           setQuery('')
+          setOutUnit(unit === "metric" ? "°C" : "°F");
         });
     }
   }
@@ -105,29 +109,30 @@ function App() {
               onKeyPress={search}
             />
           </div>
+
           <button onClick={e => findUser(position)}>Find Me</button>
-          <div class="unit-buttons">
-          <label>
-          <input
+
+          <div className="radioButtons">
+          <label htmlFor="metricRadio">°C</label>
+          <input 
+          id="metricRadio"
           type="radio"
           name="units"
           checked={unit === "metric"}
           value="metric"
           onChange={(e) => setUnit(e.target.value)}
           />
-          Celcius
-          </label>
-          <label>
+          <label htmlFor="imperialRadio">°F</label>
           <input
+          id="imperialRadio"
           type="radio"
           name="units"
           checked={unit === "imperial"}
           value="imperial"
           onChange={(e) => setUnit(e.target.value)}
           />
-          Fahrenheit
-          </label>
           </div>
+
           <div>
             <nav>
               <ul>
@@ -147,7 +152,7 @@ function App() {
 
               <div className="weather-box">
                 <div className="temp">
-                  {Math.round(weather.main.temp)}°c
+                  {Math.round(weather.main.temp)} {outUnit}
           </div>
 
                 <div className="weather">{weather.weather[0].main}</div>
