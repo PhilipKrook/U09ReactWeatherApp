@@ -112,89 +112,91 @@ function App() {
 
           <button onClick={e => findUser(position)}>Find Me</button>
 
-          <div className="radioButtons">
-          <label htmlFor="metricRadio">°C</label>
-          <input 
-          id="metricRadio"
-          type="radio"
-          name="units"
-          checked={unit === "metric"}
-          value="metric"
-          onChange={(e) => setUnit(e.target.value)}
-          />
-          <label htmlFor="imperialRadio">°F</label>
-          <input
-          id="imperialRadio"
-          type="radio"
-          name="units"
-          checked={unit === "imperial"}
-          value="imperial"
-          onChange={(e) => setUnit(e.target.value)}
-          />
-          </div>
+            <div className="radioButtons">
+              <label htmlFor="metricButton">°C</label>
+              <input
+                id="metricButton"
+                type="radio"
+                name="units"
+                checked={unit === "metric"}
+                value="metric"
+                onChange={(e) => setUnit(e.target.value)}
+              />
+              <label htmlFor="imperialButton">°F</label>
+              <input
+                id="imperialButton"
+                type="radio"
+                name="units"
+                checked={unit === "imperial"}
+                value="imperial"
+                onChange={(e) => setUnit(e.target.value)}
+              />
+            </div>
 
-          <div>
-            <nav>
-              <ul>
-                <li><Link to="/">Homepage</Link></li>
-                <li><Link to="/forecast">Forecast 5 days</Link></li>
-                <li><Link to="/about">About</Link></li>
-              </ul>
-            </nav>
-          </div>
-
-          {(typeof weather.main != 'undefined') ? (
             <div>
-              <div className="location-box">
-                <div className="location">{weather.name}, {weather.sys.country}</div>
-                <div className="date">{dateBuilder(new Date())}</div>
+              <div>
+                <nav>
+                  <ul>
+                    <li><Link to="/">Homepage</Link></li>
+                    <li><Link to="/forecast">Forecast 5 days</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                  </ul>
+                </nav>
               </div>
 
-              <div className="weather-box">
-                <div className="temp">
-                  {Math.round(weather.main.temp)} {outUnit}
-          </div>
+              {(typeof weather.main != 'undefined') ? (
+                <div>
+                  <div className="location-box">
+                    <div className="location">{weather.name}, {weather.sys.country}</div>
+                    <div className="date">{dateBuilder(new Date())}</div>
+                  </div>
 
-                <div className="weather">{weather.weather[0].main}</div>
+                  <div className="weather-box">
+                    <div className="temp">
+                      {Math.round(weather.main.temp)} {outUnit}
+                    </div>
 
-                <div className="wind-force">Wind Force:
+                    <div className="weather">{weather.weather[0].main}</div>
+
+                    <div className="wind-force">Wind Force:
             {Math.round(weather.wind.speed)} M/S
             </div>
 
-                <div className="humidity">Humidity:
+                    <div className="humidity">Humidity:
             {Math.round(weather.main.humidity)}%
             </div>
 
-                <div className="sunrise">Sunrise:
+                    <div className="sunrise">Sunrise:
                   {(weather.sys.sunrise)}
-                </div>
+                    </div>
 
-                <div className="sunset">Sunset:
+                    <div className="sunset">Sunset:
                   {(weather.sys.sunset)}
+                    </div>
+
+
+
+                  </div>
                 </div>
+              ) : ('')}
 
-
-
-              </div>
-            </div>
-          ) : ('')}
-
-          <Switch>
-            <Route path="/forecast">
-              <Forecast />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
+              <Switch>
+                <Route path="/forecast">
+                  <Forecast />
+                </Route>
+                <Route path="/about">
+                  <About />
+                </Route>
+                <Route path="/">
+                  <Home />
+                </Route>
+                <Route path="*">
+                  <NotFound />
+                </Route>
+              </Switch>
+        </div>
         </main>
-      </div >
+      </div>
     </Router>
   );
 }
