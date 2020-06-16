@@ -1,5 +1,6 @@
 {
-  "name": "u09weatherapp",
+  "name": "weatherapp",
+  "homepage": "http://krooknet.com/weatherapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
